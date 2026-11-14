@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.bak
+data/
+*.db
+*.db-shm
+*.db-wal
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc

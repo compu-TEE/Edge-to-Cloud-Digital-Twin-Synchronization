@@ -1,0 +1,4 @@
+scenario,during_outage_edge,during_outage_cloud,final_edge,final_cloud,expected,converged,correct_winner,convergence_latency_s
+cloud_newer,EDGE,CLOUD,EDGE,CLOUD,CLOUD,False,False,
+edge_newer,EDGE,CLOUD,EDGE,EDGE,EDGE,True,True,2.0
+same_timestamp,EDGE,CLOUD,EDGE,EDGE,,True,,4.5

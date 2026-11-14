@@ -1,0 +1,5 @@
+name,outage_s,capacity,generated,peak_backlog,buffer_filled,evicted,rejected,lost_events,loss_pct,drain_s_after_reconnect,twin_state_converged,history_missing_in_cloud,cloud_only_ids
+short,10,1000,175,50,False,0,0,0,0.0,2,True,0,0
+medium,60,1000,425,300,False,0,0,0,0.0,16,True,0,0
+long,300,1000,1625,1000,True,505,0,505,31.08,55,True,505,0
+stress(cap=100),60,100,425,100,True,205,0,205,48.24,5,True,205,0

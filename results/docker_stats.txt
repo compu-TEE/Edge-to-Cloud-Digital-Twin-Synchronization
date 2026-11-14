@@ -1,0 +1,6 @@
+cc-mp-edge-sync	0.19%	14.52MiB / 256MiB
+cc-mp-edge	0.03%	14.59MiB / 256MiB
+cc-mp-mosquitto	0.04%	4.801MiB / 13.41GiB
+cc-mp-cloud	0.22%	20.38MiB / 13.41GiB
+cc-mp-proxy	0.05%	15.45MiB / 13.41GiB
+cc-mp-kafka	2.87%	815.3MiB / 13.41GiB

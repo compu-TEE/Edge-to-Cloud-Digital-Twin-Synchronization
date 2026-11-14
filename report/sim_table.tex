@@ -1,0 +1,10 @@
+\begin{tabular}{lrrrrrrrrc}
+\toprule
+Run & Outage (s) & Cap. & Generated & Peak & Evicted & Lost & Loss (\%) & Recon. (s) & State conv.\\
+\midrule
+short & 10 & 1000 & 175 & 50 & 0 & 0 & 0.0 & 2 & yes\\
+medium & 60 & 1000 & 425 & 300 & 0 & 0 & 0.0 & 16 & yes\\
+long & 300 & 1000 & 1625 & 1000 & 505 & 505 & 31.08 & 55 & yes\\
+stress(cap=100) & 60 & 100 & 425 & 100 & 205 & 205 & 48.24 & 5 & yes\\
+\bottomrule
+\end{tabular}

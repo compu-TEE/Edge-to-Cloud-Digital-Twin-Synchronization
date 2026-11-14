@@ -1,0 +1,10 @@
+run,outage_s,capacity,generated,peak_backlog,buffer_filled,evicted,rejected,lost_events,loss_pct,reconcile_latency_s,twin_state_converged,cloud_only_ids
+short-1,10,1000,264,523,False,0,0,0,0.0,6.0,True,7
+medium-1,60,1000,747,637,False,0,0,0,0.0,4.5,True,5
+long-1,300,1000,3169,1000,True,2061,0,1963,61.94,9.1,True,0
+short-2,10,1000,314,200,False,0,0,0,0.0,11.1,True,5
+medium-2,60,1000,795,693,False,0,0,0,0.0,9.6,True,7
+long-2,300,1000,3166,1006,True,2058,0,1951,61.62,10.1,True,6
+short-3,10,1000,265,155,False,0,0,0,0.0,6.1,True,5
+medium-3,60,1000,798,683,False,0,0,0,0.0,10.1,True,5
+long-3,300,1000,3093,1003,True,1996,0,1894,61.24,2.5,True,6
