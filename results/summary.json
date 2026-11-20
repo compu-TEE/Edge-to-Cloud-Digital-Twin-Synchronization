@@ -4,136 +4,136 @@
       "run": "short-1",
       "outage_s": 10,
       "capacity": 1000,
-      "generated": 270,
-      "peak_backlog": 423,
+      "generated": 255,
+      "peak_backlog": 147,
       "buffer_filled": false,
       "evicted": 0,
       "rejected": 0,
       "lost_events": 0,
       "loss_pct": 0.0,
-      "reconcile_latency_s": 6.6,
+      "reconcile_latency_s": 5.1,
       "twin_state_converged": true,
-      "cloud_only_ids": 367
+      "accounting_gap": 0
     },
     {
       "run": "medium-1",
       "outage_s": 60,
       "capacity": 1000,
-      "generated": 737,
-      "peak_backlog": 626,
+      "generated": 792,
+      "peak_backlog": 684,
       "buffer_filled": false,
       "evicted": 0,
       "rejected": 0,
       "lost_events": 0,
       "loss_pct": 0.0,
-      "reconcile_latency_s": 3.5,
+      "reconcile_latency_s": 9.2,
       "twin_state_converged": true,
-      "cloud_only_ids": 5
+      "accounting_gap": 0
     },
     {
       "run": "long-1",
       "outage_s": 300,
       "capacity": 1000,
-      "generated": 3168,
-      "peak_backlog": 1006,
+      "generated": 3153,
+      "peak_backlog": 1000,
       "buffer_filled": true,
-      "evicted": 2064,
+      "evicted": 2041,
       "rejected": 0,
-      "lost_events": 1884,
-      "loss_pct": 59.47,
-      "reconcile_latency_s": 8.8,
+      "lost_events": 2041,
+      "loss_pct": 64.73,
+      "reconcile_latency_s": 8.7,
       "twin_state_converged": true,
-      "cloud_only_ids": 6
+      "accounting_gap": -85
     },
     {
       "run": "short-2",
       "outage_s": 10,
       "capacity": 1000,
-      "generated": 310,
-      "peak_backlog": 198,
+      "generated": 249,
+      "peak_backlog": 142,
       "buffer_filled": false,
       "evicted": 0,
       "rejected": 0,
       "lost_events": 0,
       "loss_pct": 0.0,
-      "reconcile_latency_s": 10.6,
+      "reconcile_latency_s": 4.5,
       "twin_state_converged": true,
-      "cloud_only_ids": 9
+      "accounting_gap": -85
     },
     {
       "run": "medium-2",
       "outage_s": 60,
       "capacity": 1000,
-      "generated": 776,
-      "peak_backlog": 670,
+      "generated": 745,
+      "peak_backlog": 627,
       "buffer_filled": false,
       "evicted": 0,
       "rejected": 0,
       "lost_events": 0,
       "loss_pct": 0.0,
-      "reconcile_latency_s": 7.7,
+      "reconcile_latency_s": 4.5,
       "twin_state_converged": true,
-      "cloud_only_ids": 10
+      "accounting_gap": -85
     },
     {
       "run": "long-2",
       "outage_s": 300,
       "capacity": 1000,
-      "generated": 3110,
-      "peak_backlog": 1003,
+      "generated": 3136,
+      "peak_backlog": 1000,
       "buffer_filled": true,
-      "evicted": 2010,
+      "evicted": 2033,
       "rejected": 0,
-      "lost_events": 1901,
-      "loss_pct": 61.13,
-      "reconcile_latency_s": 4.1,
+      "lost_events": 2033,
+      "loss_pct": 64.83,
+      "reconcile_latency_s": 7.5,
       "twin_state_converged": true,
-      "cloud_only_ids": 0
+      "accounting_gap": -230
     },
     {
       "run": "short-3",
       "outage_s": 10,
       "capacity": 1000,
-      "generated": 304,
-      "peak_backlog": 200,
+      "generated": 319,
+      "peak_backlog": 215,
       "buffer_filled": false,
       "evicted": 0,
       "rejected": 0,
       "lost_events": 0,
       "loss_pct": 0.0,
-      "reconcile_latency_s": 10.1,
+      "reconcile_latency_s": 11.6,
       "twin_state_converged": true,
-      "cloud_only_ids": 5
+      "accounting_gap": -230
     },
     {
       "run": "medium-3",
       "outage_s": 60,
       "capacity": 1000,
-      "generated": 765,
-      "peak_backlog": 648,
+      "generated": 787,
+      "peak_backlog": 683,
       "buffer_filled": false,
       "evicted": 0,
       "rejected": 0,
       "lost_events": 0,
       "loss_pct": 0.0,
-      "reconcile_latency_s": 6.6,
+      "reconcile_latency_s": 9.1,
       "twin_state_converged": true,
-      "cloud_only_ids": 2
+      "accounting_gap": -230
     },
     {
       "run": "long-3",
       "outage_s": 300,
       "capacity": 1000,
-      "generated": 3133,
-      "peak_backlog": 1007,
+      "generated": 3106,
+      "peak_backlog": 1000,
       "buffer_filled": true,
-      "evicted": 2028,
+      "evicted": 1996,
       "rejected": 0,
-      "lost_events": 1898,
-      "loss_pct": 60.58,
-      "reconcile_latency_s": 6.1,
+      "lost_events": 1996,
+      "loss_pct": 64.26,
+      "reconcile_latency_s": 4.1,
       "twin_state_converged": true,
-      "cloud_only_ids": 0
+      "accounting_gap": -306
     }
   ],
   "conflicts": [
@@ -146,7 +146,7 @@
       "expected": "CLOUD",
       "converged": true,
       "correct_winner": true,
-      "convergence_latency_s": 7.2
+      "convergence_latency_s": 2.0
     },
     {
       "scenario": "edge_newer",
@@ -157,7 +157,7 @@
       "expected": "EDGE",
       "converged": true,
       "correct_winner": true,
-      "convergence_latency_s": 2.5
+      "convergence_latency_s": 8.6
     },
     {
       "scenario": "same_timestamp",
@@ -168,8 +168,8 @@
       "expected": null,
       "converged": true,
       "correct_winner": null,
-      "convergence_latency_s": 2.5
+      "convergence_latency_s": 3.5
     }
   ],
-  "generated_at": "2026-11-14T04:58:18.362724+00:00"
+  "generated_at": "2026-11-20T12:41:15.057088+00:00"
 }

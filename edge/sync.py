@@ -47,6 +47,11 @@ def main():
         "group.id": "edge-ack-consumer",
         "auto.offset.reset": "earliest",
         "enable.auto.commit": False,
+        # Topics such as twin-commands only exist after the cloud first
+        # produces to them. Without these, a consumer that subscribed earlier
+        # only notices a new topic at the next metadata refresh (default 5 min).
+        "topic.metadata.refresh.interval.ms": 3000,
+        "allow.auto.create.topics": True,
     })
     consumer.subscribe([ACK_TOPIC, CMD_TOPIC])
     print("Edge sync started.", flush=True)
@@ -81,6 +86,10 @@ def main():
 
         now = time.time()
         if now - last_send >= 0.5:
+            # Select + mark inside ONE write transaction so the receiver cannot
+            # evict a row between our SELECT and our UPDATE (that race used to
+            # resurrect evicted rows and push the backlog past capacity).
+            db.execute("BEGIN IMMEDIATE")
             rows = db.execute("""
                 SELECT event_id, payload_json FROM outbox
                 WHERE status = 'pending'
@@ -88,18 +97,17 @@ def main():
                        (julianday('now') - julianday(sent_at)) * 86400.0 > ?)
                 ORDER BY created_at, rowid LIMIT ?
             """, (RETRY_SECONDS, SEND_BATCH)).fetchall()
-            if rows:
-                ts = core.utc_now()
-                db.execute("BEGIN IMMEDIATE")
-                for event_id, payload in rows:
-                    try:
-                        producer.produce(EVENT_TOPIC, key=event_id, value=payload,
-                                         on_delivery=on_delivery)
-                    except BufferError:
-                        break
-                    db.execute("UPDATE outbox SET status='sent', sent_at=? "
-                               "WHERE event_id=?", (ts, event_id))
-                db.execute("COMMIT")
+            ts = core.utc_now()
+            for event_id, payload in rows:
+                try:
+                    producer.produce(EVENT_TOPIC, key=event_id, value=payload,
+                                     on_delivery=on_delivery)
+                except BufferError:
+                    break
+                db.execute("UPDATE outbox SET status='sent', sent_at=? "
+                           "WHERE event_id=? AND status IN ('pending','sent')",
+                           (ts, event_id))
+            db.execute("COMMIT")
             producer.poll(0)
             last_send = now
 

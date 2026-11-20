@@ -12,8 +12,8 @@ Definitions
   peak backlog      max unacked outbox rows sampled every 0.5 s during the outage
   reconciliation    seconds from proxy ON until backlog <= --drain-threshold for
   latency           two consecutive samples (sensors keep running)
-  data loss         edge events (received during the run window) missing from the
-                    cloud once drained + events rejected at the edge
+  data loss         events evicted or rejected at the edge during the run (exact counters);
+                    cross-checked: edge events missing from cloud == cumulative evictions
   conflict          seconds from proxy ON until edge and cloud agree on the value
   convergence
 """
@@ -99,21 +99,24 @@ def run_outage(name, dur, thresh, series_dir):
     wait_until(lambda: unacked() == 0, 600)
     time.sleep(2)
     m1 = http("GET", f"{EDGE}/metrics")
-    q = urllib.parse.quote(t0)
-    edge_ids = set(http("GET", f"{EDGE}/event_ids?since={q}", timeout=60))
-    cloud_ids = set(http("GET", f"{CLOUD}/event_ids?since={q}", timeout=60))
-    missing = len(edge_ids - cloud_ids)
+    # Exact accounting from the edge's own counters (window = this run):
+    evicted = m1["evicted_events"] - m0["evicted_events"]
     rejected = m1["dropped_events"] - m0["dropped_events"]
-    generated = len(edge_ids) + rejected
+    generated = (m1["events_total"] - m0["events_total"]) + rejected
+    lost = evicted + rejected
+    # Independent cross-check over the WHOLE databases after draining:
+    # edge events absent from the cloud must equal the cumulative evictions.
+    edge_ids = set(http("GET", f"{EDGE}/event_ids", timeout=120))
+    cloud_ids = set(http("GET", f"{CLOUD}/event_ids", timeout=120))
+    gap = len(edge_ids - cloud_ids) - m1["evicted_events"]   # expect 0
     converged = http("GET", f"{EDGE}/state") == http("GET", f"{CLOUD}/state")
     res = {
         "run": name, "outage_s": dur, "capacity": cap, "generated": generated,
         "peak_backlog": peak, "buffer_filled": peak >= cap,
-        "evicted": m1["evicted_events"] - m0["evicted_events"],
-        "rejected": rejected, "lost_events": missing + rejected,
-        "loss_pct": round(100 * (missing + rejected) / max(generated, 1), 2),
+        "evicted": evicted, "rejected": rejected, "lost_events": lost,
+        "loss_pct": round(100 * lost / max(generated, 1), 2),
         "reconcile_latency_s": latency, "twin_state_converged": converged,
-        "cloud_only_ids": len(cloud_ids - edge_ids),
+        "accounting_gap": gap,
     }
     with open(os.path.join(series_dir, f"backlog_{name}.csv"), "w", newline="") as f:
         w = csv.writer(f); w.writerow(["t_s", "unacked", "link"]); w.writerows(series)

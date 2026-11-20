@@ -83,6 +83,8 @@ def make_clients():
         "group.id": "cloud-twin-consumer",
         "auto.offset.reset": "earliest",
         "enable.auto.commit": False,
+        "topic.metadata.refresh.interval.ms": 3000,   # see edge/sync.py
+        "allow.auto.create.topics": True,
     })
     consumer.subscribe([EVENT_TOPIC, CMD_ACK_TOPIC])
     producer = Producer({"bootstrap.servers": KAFKA_SERVERS,
